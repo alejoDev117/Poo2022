@@ -62,7 +62,7 @@ public class AgendaTelefonica {
     }
 
     public boolean cambioCelular(int nuevoNumero, int numeroActual) {
-        if (validarExistenciaContacto(numeroActual)) {
+        if (validarExistenciaContacto(numeroActual) && validarContactoNoRepetido(nuevoNumero)) {
             for (Contacto recorrido : contactos) {
                 if (recorrido.getNumero() == numeroActual) {
                     recorrido.setNumero(nuevoNumero);
@@ -74,6 +74,7 @@ public class AgendaTelefonica {
     }
 
     private void ordenAlfabetico() {
+
         Collections.sort(contactos);
     }
 
@@ -110,10 +111,12 @@ public class AgendaTelefonica {
     }
 
     public String getVersion() {
+
         return version;
     }
 
     public List<Contacto> getContactos() {
+
         return contactos;
     }
 }
