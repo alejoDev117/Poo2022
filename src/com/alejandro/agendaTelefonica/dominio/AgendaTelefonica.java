@@ -19,9 +19,8 @@ public class AgendaTelefonica {
             contactos.add(nuevo);
             ordenAlfabetico();
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean eliminarContacto(int numero) {
@@ -40,7 +39,7 @@ public class AgendaTelefonica {
     public void buscarNombre(String nombre) {
         for (Contacto comparador : contactos) {
             if (comparador.getNombre().equals(nombre)) {
-                System.out.println("Nombre:" + comparador.getNombre() + " Apellido:" + comparador.getApellido() + " Numero:" + comparador.getNumero());
+                System.out.println(comparador.getNombre() + "-" + comparador.getApellido() + "-" + comparador.getNumero());
             }
         }
     }
@@ -48,7 +47,7 @@ public class AgendaTelefonica {
     public void buscarApellido(String apellido) {
         for (Contacto comparador : contactos) {
             if (comparador.getApellido().equals(apellido)) {
-                System.out.println("Nombre:" + comparador.getNombre() + " Apellido:" + comparador.getApellido() + " Numero:" + comparador.getNumero());
+                System.out.println(comparador.getNombre() + "-" + comparador.getApellido() + "-" + comparador.getNumero());
             }
         }
     }
@@ -56,7 +55,7 @@ public class AgendaTelefonica {
     public void buscarNumero(int numero) {
         for (Contacto comparador : contactos) {
             if (comparador.getNumero() == numero) {
-                System.out.println("Nombre:" + comparador.getNombre() + " Apellido:" + comparador.getApellido() + " Numero:" + comparador.getNumero());
+                System.out.println(comparador.getNombre() + "-" + comparador.getApellido() + "-" + comparador.getNumero());
             }
         }
     }
@@ -80,7 +79,7 @@ public class AgendaTelefonica {
 
     public void mostrarListaContacto() {
         for (Contacto mostrar : contactos) {
-            System.out.println("Nombre: " + mostrar.getNombre() + " Apellido: " + mostrar.getApellido() + " Numero: " + mostrar.getNumero());
+            System.out.println(mostrar.getNombre() + "-" + mostrar.getApellido() + "-" + mostrar.getNumero());
         }
     }
 

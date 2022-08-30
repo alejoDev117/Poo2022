@@ -14,20 +14,20 @@ public class Contacto implements Comparable<Contacto>{
         this.ordenAlfabetico = nombre + apellido;
     }
     public String getNombre() {
+
         return nombre;
     }
 
     public String getApellido() {
-
         return apellido;
     }
 
     public int getNumero() {
-
         return numero;
     }
 
     public String getOrdenAlfabetico(){
+
         return ordenAlfabetico;
     }
 
