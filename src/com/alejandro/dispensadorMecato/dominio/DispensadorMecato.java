@@ -45,17 +45,16 @@ public class DispensadorMecato {
 
     public boolean sacarUnidad(String inputDelTeclado, float pago) {
         if (validarCodigo(inputDelTeclado)) {
-            for (Mecato busqueda : contenido) {
-                if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getPrecio() <= pago){
-                    pago -= busqueda.getPrecio();
+            for (Mecato busqueda : contenido) {//saca unidad por codigo
+                if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.validarCantidadUnidadesActual()){
                     busqueda.setCantidad(busqueda.getCantidad() - 1);
                     return true;
                 }
             }
             return false;
         } else {
-            for (Mecato busqueda : contenido) {
-                if (busqueda.getNombre().equals(inputDelTeclado)) {
+            for (Mecato busqueda : contenido) {//saca unidad por nombre
+                if (busqueda.getNombre().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.validarCantidadUnidadesActual()) {
                     busqueda.setCantidad(busqueda.getCantidad() - 1);
                     return true;
                 }
@@ -65,7 +64,7 @@ public class DispensadorMecato {
     }
 
     public boolean aumentarUnidad(String inputDelTeclado) {
-        if (validarCodigo(inputDelTeclado)) {
+        if (validarCodigo(inputDelTeclado)) {//aumenta por codigo
             for (Mecato busqueda : contenido) {
                 if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getCantidad() < 6) {
                     busqueda.setCantidad(busqueda.getCantidad() + 1);
@@ -74,7 +73,7 @@ public class DispensadorMecato {
             }
             return false;
         } else {
-            for (Mecato busqueda : contenido) {
+            for (Mecato busqueda : contenido) {//aumenta por nombre
                 if (busqueda.getNombre().equals(inputDelTeclado) && busqueda.getCantidad() < 6) {
                     busqueda.setCantidad(busqueda.getCantidad() + 1);
                     return true;
@@ -85,23 +84,25 @@ public class DispensadorMecato {
     }
 
     public int consultarUnidad(String codigo) {
-        for (Mecato consulta : contenido) {
-            if (consulta.getCodigo().equals(codigo)) {
-                return consulta.getCantidad();
+        if(validarExistenciaDeCodigo(codigo)) {
+            for (Mecato consulta : contenido) {
+                if (consulta.getCodigo().equals(codigo)) {
+                    return consulta.getCantidad();
+                }
             }
         }
-        return 7;
+        return 10;
     }
 
     public void mostrarLista(int decision) {
         if (decision == 1) {//muestra toda la lista
             for (Mecato mostrar : contenido) {
-                System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " cantidad: " + mostrar.getCantidad());
+                System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " cantidad: " + mostrar.getCantidad()+" Codigo: "+mostrar.getCodigo());
             }
         } else if (decision == 2) {//muestra solo los snacks agotados
             for (Mecato mostrar : contenido) {
                 if (mostrar.getCantidad() == 0) {
-                    System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " cantidad: " + mostrar.getCantidad());
+                    System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " Agotado "+" Codigo: "+mostrar.getCodigo());
                 }
             }
         }
@@ -116,7 +117,7 @@ public class DispensadorMecato {
     }
 
     private boolean validarCodigo(String codigo) {
-        if (codigo.length() == 3 && validarExistenciaDeCodigo(codigo)) {
+        if (codigo.length() <= 3 && validarExistenciaDeCodigo(codigo)) {
             return true;
         } else {
             return false;

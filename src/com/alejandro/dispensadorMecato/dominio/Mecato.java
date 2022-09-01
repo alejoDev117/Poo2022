@@ -13,6 +13,13 @@ public class Mecato {
         this.cantidad = 6;
     }
 
+    protected boolean validarCantidadUnidadesActual(){
+        if(this.cantidad >= 0){
+            return true;
+        }
+        return false;
+    }
+
     public String getNombre() {
 
         return nombre;
