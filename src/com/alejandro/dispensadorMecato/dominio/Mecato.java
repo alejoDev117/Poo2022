@@ -6,7 +6,7 @@ public class Mecato {
     private float precio;
     private int cantidad;
 
-    public Mecato(String nombre, String codigo, int precio) {
+    public Mecato(String nombre, String codigo, float precio) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.precio = precio;
@@ -14,22 +14,27 @@ public class Mecato {
     }
 
     public String getNombre() {
+
         return nombre;
     }
 
     public String getCodigo() {
+
         return codigo;
     }
 
     public float getPrecio() {
+
         return precio;
     }
 
     public int getCantidad() {
+
         return cantidad;
     }
 
     public void setCantidad(int cantidad) {
+
         this.cantidad = cantidad;
     }
 
