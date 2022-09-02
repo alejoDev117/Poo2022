@@ -1,6 +1,6 @@
 package com.alejandro.dispensadorMecato.dominio;
 
-public class Mecato implements Comparable<Mecato>{
+public class Mecato {
     private String nombre;
     private String codigo;
     private float precio;
@@ -11,14 +11,16 @@ public class Mecato implements Comparable<Mecato>{
         this.codigo = codigo;
         this.precio = precio;
         this.cantidad = 6;
+
     }
 
-    protected boolean cantidadValoresPositivo(){
-        if(this.cantidad >= 0){
+    protected boolean cantidadValoresPositivo() {
+        if (this.cantidad >= 0) {
             return true;
         }
         return false;
     }
+
 
     public String getNombre() {
 
@@ -40,12 +42,11 @@ public class Mecato implements Comparable<Mecato>{
         return cantidad;
     }
 
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    @Override
-    public int compareTo(Mecato o) {
-        return 0;
-    }
+
 }
+

@@ -1,6 +1,7 @@
 package com.alejandro.dispensadorMecato.dominio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DispensadorMecato {
@@ -11,7 +12,7 @@ public class DispensadorMecato {
     public DispensadorMecato() {
         this.snacks = new ArrayList<>();
         this.codigos = new ArrayList<>();
-        for (int i = 1; i <=12; i++) {
+        for (int i = 1; i <= 12; i++) {
             String c = "c";
             c += i;
             this.codigos.add(c);
@@ -45,7 +46,7 @@ public class DispensadorMecato {
     public boolean sacarPorUnidad(String inputDelTeclado, float pago) {
         if (validarCodigo(inputDelTeclado)) {
             for (Mecato busqueda : snacks) {//saca unidad por codigo
-                if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.cantidadValoresPositivo()){
+                if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.cantidadValoresPositivo()) {
                     busqueda.setCantidad(busqueda.getCantidad() - 1);
                     return true;
                 }
@@ -75,6 +76,7 @@ public class DispensadorMecato {
             for (Mecato busqueda : snacks) {//aumenta por nombre
                 if (busqueda.getNombre().equals(inputDelTeclado) && busqueda.getCantidad() < 6) {
                     busqueda.setCantidad(busqueda.getCantidad() + 1);
+
                     return true;
                 }
             }
@@ -83,7 +85,7 @@ public class DispensadorMecato {
     }
 
     public int consultarUnidadesRestantes(String codigo) {
-        if(validarExistenciaDelCodigo(codigo)) {
+        if (validarExistenciaDelCodigo(codigo)) {
             for (Mecato consulta : snacks) {
                 if (consulta.getCodigo().equals(codigo)) {
                     return consulta.getCantidad();
@@ -95,24 +97,41 @@ public class DispensadorMecato {
 
     public void mostrarLista(int decision) {
         if (decision == 1) {//muestra toda la lista
+            System.out.println("[----------------------------------]");
             for (Mecato mostrar : snacks) {
-                System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " cantidad: " + mostrar.getCantidad()+" Codigo: "+mostrar.getCodigo());
+                System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " cantidad: " + mostrar.getCantidad() + " Codigo: " + mostrar.getCodigo());
             }
+            System.out.println("[----------------------------------]");
+
+
         } else if (decision == 2) {//muestra solo los snacks agotados
+
+            System.out.println("[----------------------------------]");
             for (Mecato mostrar : snacks) {
                 if (mostrar.getCantidad() == 0) {
-                    System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " Agotado "+" Codigo: "+mostrar.getCodigo());
+                    System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " Agotado " + " Codigo: " + mostrar.getCodigo());
                 }
             }
+            System.out.println("[----------------------------------]");
         }
     }
 
-    public void ordenPorValor() {
-
+    public void ordenarPorValor() {
+        Collections.sort(snacks, (s1, s2) -> new Float(s2.getPrecio()).compareTo(new Float(s1.getPrecio())));
+        System.out.println("[---------]");
+        for (Mecato precio : snacks) {
+            System.out.println(precio.getNombre() + " precio: " + precio.getPrecio());
+        }
+        System.out.println("[---------]");
     }
 
-    public void ordenPorCantidad() {
-
+    public void ordenarPorCantidad() {
+        Collections.sort(snacks, (s1, s2) -> new Integer(s2.getCantidad()).compareTo(new Integer(s1.getCantidad())));
+        System.out.println("[---------]");
+        for (Mecato cantidad : snacks) {
+            System.out.println(cantidad.getNombre() + " cantidad: " + cantidad.getCantidad());
+        }
+        System.out.println("[---------]");
     }
 
     private boolean validarCodigo(String codigo) {

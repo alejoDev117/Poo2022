@@ -32,11 +32,12 @@ public class Contacto implements Comparable<Contacto>{
     }
 
     void setNumero(int numero) {
+
         this.numero = numero;
     }
 
     @Override
     public int compareTo(Contacto o) {
-        return ordenAlfabetico.compareTo(o.getOrdenAlfabetico());
+        return ordenAlfabetico.compareTo(o.ordenAlfabetico);
     }
 }

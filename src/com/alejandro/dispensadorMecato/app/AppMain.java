@@ -9,9 +9,10 @@ public class AppMain {
         Scanner input  = new Scanner(System.in);
         DispensadorMecato maquina = new DispensadorMecato();
         String menu ="Menu de opciones\n" + "1.Ver lista de productos\n" + "2.Agregar snack\n" + "3.Quitar snack\n"
-                +"4.Sacar unidad\n" + "5.Agregar unidad\n" + "6.Consultar snack\n"+"7.Ver lista de precios\n"+"8.Ver lista de unidades\n9.Salir";
+                +"4.Sacar unidad\n" + "5.Agregar unidad\n" + "6.Consultar snack\n"+"7.Ver lista de precios\n"+"8.Ver lista de unidades\n9.Salir"
+                +"\n->R?";
         int decision = 0;
-        while (decision != 8){
+        while (decision != 9){
             System.out.println(menu);
             decision = input.nextInt();
             switch (decision){
@@ -41,7 +42,7 @@ public class AppMain {
                     }
                     break;
                 case 4:
-                    System.out.println("Sacar por:\n1.Nombre\n2.Codigo");
+                    System.out.println("Sacar por:\n1.Nombre\n2.Codigo\n->R?");
                     int decisionBusqueda = input.nextInt();
                     switch (decisionBusqueda){
                         case 1:
@@ -71,7 +72,7 @@ public class AppMain {
                     }
                     break;
                 case 5:
-                    System.out.println("Agregar por:\n1.Nombre\n2.Codigo\n");
+                    System.out.println("Agregar por:\n1.Nombre\n2.Codigo\n->R?");
                     int decisionAgregar = input.nextInt();
                     switch (decisionAgregar){
                         case 1:
@@ -97,7 +98,7 @@ public class AppMain {
                     }
                     break;
                 case 6:
-                    System.out.println("Consultar por:\n1.Unidades restantes de un snack\n2.Lista de snacks que estan agotados\n");
+                    System.out.println("Consultar por:\n1.Unidades restantes de un snack\n2.Lista de snacks que estan agotados\n->R?");
                     int decisionConsulta = input.nextInt();
                     switch (decisionConsulta){
                         case 1:
@@ -110,6 +111,16 @@ public class AppMain {
                             maquina.mostrarLista(2);
                             break;
                     }
+                    break;
+                case 7:
+                    maquina.ordenarPorValor();
+                    break;
+                case 8:
+                    maquina.ordenarPorCantidad();
+                    break;
+                case 9:
+                    decision = 9;
+                    break;
             }
         }
     }
