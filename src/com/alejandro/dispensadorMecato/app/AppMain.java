@@ -24,7 +24,7 @@ public class AppMain {
                     String nombreSnackNuevo = input.nextLine();
                     System.out.println("Ingrese precio\n");
                     float precioSnackNuevo = input.nextFloat();
-                    if(maquina.agregarCompletoSnack(nombreSnackNuevo,precioSnackNuevo)){
+                    if(maquina.agregarSnackCompleto(nombreSnackNuevo,precioSnackNuevo)){
                         System.out.println("Snack Agregado con exito\n");
                     }else{
                         System.out.println("Error maquina llena\n");
@@ -34,7 +34,7 @@ public class AppMain {
                     System.out.println("Ingrese codigo para poder retirarlo\n");
                     input.nextLine();
                     String codigoRetiro = input.nextLine();
-                    if(maquina.quitarCompletoSnack(codigoRetiro)){
+                    if(maquina.quitarSnackCompleto(codigoRetiro)){
                         System.out.println("Snack retirado con exito\n");
                     }else {
                         System.out.println("Error codigo incorrecto\n");
@@ -50,7 +50,7 @@ public class AppMain {
                             String nombreSacar = input.nextLine();
                             System.out.println("Ingrese dinero\n");
                             float dinero = input.nextFloat();
-                            if(maquina.sacarUnidad(nombreSacar,dinero)){
+                            if(maquina.sacarPorUnidad(nombreSacar,dinero)){
                                 System.out.println("Exito en la operacion");
                             }else {
                                 System.out.println("Error nombre desconocido o dinero insuficiente\n");
@@ -62,7 +62,7 @@ public class AppMain {
                             String codigoSacar = input.nextLine();
                             System.out.println("Ingrese dinero\n");
                             float money = input.nextFloat();
-                            if(maquina.sacarUnidad(codigoSacar,money)){
+                            if(maquina.sacarPorUnidad(codigoSacar,money)){
                                 System.out.println("Exito en la operacion");
                             }else {
                                 System.out.println("Error nombre desconocido o dinero insuficiente\n");
@@ -104,7 +104,7 @@ public class AppMain {
                             System.out.println("Ingrese Codigo\n");
                             input.nextLine();
                             String codigoDeConsulta = input.nextLine();
-                            System.out.println("Cantidad restante: "+maquina.consultarUnidad(codigoDeConsulta));
+                            System.out.println("Cantidad restante: "+maquina.consultarUnidadesRestantes(codigoDeConsulta));
                             break;
                         case 2:
                             maquina.mostrarLista(2);

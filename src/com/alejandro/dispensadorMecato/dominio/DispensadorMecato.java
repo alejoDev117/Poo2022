@@ -1,16 +1,15 @@
 package com.alejandro.dispensadorMecato.dominio;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DispensadorMecato {
-    private List<Mecato> contenido;
+    private List<Mecato> snacks;
     private List<String> codigos;
 
 
     public DispensadorMecato() {
-        this.contenido = new ArrayList<>();
+        this.snacks = new ArrayList<>();
         this.codigos = new ArrayList<>();
         for (int i = 1; i <=12; i++) {
             String c = "c";
@@ -20,22 +19,22 @@ public class DispensadorMecato {
 
     }
 
-    public boolean agregarCompletoSnack(String nombre, float precio) {
-        if (validarCapacidadMaximaSnack()) {
+    public boolean agregarSnackCompleto(String nombre, float precio) {
+        if (validarCapacidadMaximaMaquina()) {
             Mecato nuevoMecato = new Mecato(nombre, codigos.get(0), precio);
             codigos.remove(0);
-            contenido.add(nuevoMecato);
+            snacks.add(nuevoMecato);
             return true;
         }
         return false;
     }
 
-    public boolean quitarCompletoSnack(String codigoDel) {
-        if (validarCodigo(codigoDel)) {
-            for (Mecato eliminacion : contenido) {
-                if (eliminacion.getCodigo().equals(codigoDel)) {
+    public boolean quitarSnackCompleto(String codigoParaEliminar) {
+        if (validarCodigo(codigoParaEliminar)) {
+            for (Mecato eliminacion : snacks) {
+                if (eliminacion.getCodigo().equals(codigoParaEliminar)) {
                     codigos.add(eliminacion.getCodigo());
-                    contenido.remove(eliminacion);
+                    snacks.remove(eliminacion);
                     return true;
                 }
             }
@@ -43,18 +42,18 @@ public class DispensadorMecato {
         return false;
     }
 
-    public boolean sacarUnidad(String inputDelTeclado, float pago) {
+    public boolean sacarPorUnidad(String inputDelTeclado, float pago) {
         if (validarCodigo(inputDelTeclado)) {
-            for (Mecato busqueda : contenido) {//saca unidad por codigo
-                if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.validarCantidadUnidadesActual()){
+            for (Mecato busqueda : snacks) {//saca unidad por codigo
+                if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.cantidadValoresPositivo()){
                     busqueda.setCantidad(busqueda.getCantidad() - 1);
                     return true;
                 }
             }
             return false;
         } else {
-            for (Mecato busqueda : contenido) {//saca unidad por nombre
-                if (busqueda.getNombre().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.validarCantidadUnidadesActual()) {
+            for (Mecato busqueda : snacks) {//saca unidad por nombre
+                if (busqueda.getNombre().equals(inputDelTeclado) && busqueda.getPrecio() <= pago && busqueda.cantidadValoresPositivo()) {
                     busqueda.setCantidad(busqueda.getCantidad() - 1);
                     return true;
                 }
@@ -65,7 +64,7 @@ public class DispensadorMecato {
 
     public boolean aumentarUnidad(String inputDelTeclado) {
         if (validarCodigo(inputDelTeclado)) {//aumenta por codigo
-            for (Mecato busqueda : contenido) {
+            for (Mecato busqueda : snacks) {
                 if (busqueda.getCodigo().equals(inputDelTeclado) && busqueda.getCantidad() < 6) {
                     busqueda.setCantidad(busqueda.getCantidad() + 1);
                     return true;
@@ -73,7 +72,7 @@ public class DispensadorMecato {
             }
             return false;
         } else {
-            for (Mecato busqueda : contenido) {//aumenta por nombre
+            for (Mecato busqueda : snacks) {//aumenta por nombre
                 if (busqueda.getNombre().equals(inputDelTeclado) && busqueda.getCantidad() < 6) {
                     busqueda.setCantidad(busqueda.getCantidad() + 1);
                     return true;
@@ -83,9 +82,9 @@ public class DispensadorMecato {
         }
     }
 
-    public int consultarUnidad(String codigo) {
-        if(validarExistenciaDeCodigo(codigo)) {
-            for (Mecato consulta : contenido) {
+    public int consultarUnidadesRestantes(String codigo) {
+        if(validarExistenciaDelCodigo(codigo)) {
+            for (Mecato consulta : snacks) {
                 if (consulta.getCodigo().equals(codigo)) {
                     return consulta.getCantidad();
                 }
@@ -96,11 +95,11 @@ public class DispensadorMecato {
 
     public void mostrarLista(int decision) {
         if (decision == 1) {//muestra toda la lista
-            for (Mecato mostrar : contenido) {
+            for (Mecato mostrar : snacks) {
                 System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " cantidad: " + mostrar.getCantidad()+" Codigo: "+mostrar.getCodigo());
             }
         } else if (decision == 2) {//muestra solo los snacks agotados
-            for (Mecato mostrar : contenido) {
+            for (Mecato mostrar : snacks) {
                 if (mostrar.getCantidad() == 0) {
                     System.out.println(mostrar.getNombre() + " precio: " + mostrar.getPrecio() + " Agotado "+" Codigo: "+mostrar.getCodigo());
                 }
@@ -117,14 +116,14 @@ public class DispensadorMecato {
     }
 
     private boolean validarCodigo(String codigo) {
-        if (codigo.length() <= 3 && validarExistenciaDeCodigo(codigo)) {
+        if (codigo.length() <= 3 && validarExistenciaDelCodigo(codigo)) {
             return true;
         } else {
             return false;
         }
     }
 
-    private boolean validarExistenciaDeCodigo(String codigo) {
+    private boolean validarExistenciaDelCodigo(String codigo) {
         for (String codigoExistente : codigos) {
             if (codigoExistente.equals(codigo)) {
                 return false;
@@ -133,8 +132,8 @@ public class DispensadorMecato {
         return true;
     }
 
-    private boolean validarCapacidadMaximaSnack() {
-        if (contenido.size() < 12) {
+    private boolean validarCapacidadMaximaMaquina() {
+        if (snacks.size() < 12) {
             return true;
         } else {
             return false;
